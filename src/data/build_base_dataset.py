@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 
 
@@ -7,14 +6,14 @@ df_overview = pd.read_csv("data/raw/detailed_matches_overview.csv")
 df_player     = pd.read_csv("data/raw/detailed_matches_player_stats.csv")
 
 temp = pd.merge(df_overview[['match_id', 'date']],
-                df_maps[['match_id', 'map_name', 'winner']],  # Added 'match_id' to df_maps for merging
+                df_maps[['match_id', 'map_name', 'winner']],
                 on='match_id',
                 how='inner')
 
-# Then merge the result with df_player on 'match_id'
+# Merge with player stats on both match_id AND map_name to avoid Cartesian product
 output = pd.merge(temp,
-                  df_player[['match_id','team1', 'team2', 'player_name', 'player_team', 'rating', 'k', 'd']],  # Added 'match_id' to df_player
-                  on='match_id',
+                  df_player[['match_id', 'map_name', 'team1', 'team2', 'player_name', 'player_team', 'rating', 'k', 'd']],
+                  on=['match_id', 'map_name'],
                   how='inner')
 
 output['date'] = pd.to_datetime(output['date'])

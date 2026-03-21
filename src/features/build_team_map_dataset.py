@@ -85,6 +85,7 @@ agg = (
 
 # Calculate team K/D ratio
 agg["team_kd"] = agg["total_k"] / agg["total_d"]
+agg = agg.rename(columns={"player_team": "team"})
 
 # Persist aggregated dataset
 agg = agg.sort_values("date").reset_index(drop=True)

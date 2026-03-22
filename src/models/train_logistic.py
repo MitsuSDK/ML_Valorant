@@ -17,10 +17,18 @@ df["date"] = pd.to_datetime(df["date"])
 train_df = df[df["date"] < "2025-10-01"]
 test_df  = df[df["date"] >= "2025-10-01"]
 
-X_train = train_df[["rating_diff", "kd_diff"]]
+feature_cols = [
+    "rating_decay_map_diff",
+    "kd_decay_map_diff",
+    "rating_decay_global_diff",
+    "kd_decay_global_diff",
+    "experience_diff"
+]
+
+X_train = train_df[feature_cols]
 y_train = train_df["target"]
 
-X_test = test_df[["rating_diff", "kd_diff"]]
+X_test = test_df[feature_cols]
 y_test = test_df["target"]
 
 # --- Train model ---
@@ -40,8 +48,8 @@ print(f"Accuracy: {accuracy:.4f}")
 print(f"ROC-AUC: {roc_auc:.4f}")
 
 print("\nModel Coefficients:")
-print("rating_diff:", model.coef_[0][0])
-print("kd_diff:", model.coef_[0][1])
+for name, coef in zip(feature_cols, model.coef_[0]):
+    print(f"{name}: {coef}")
 
 print("Train size:", len(train_df))
 print("Test size:", len(test_df))

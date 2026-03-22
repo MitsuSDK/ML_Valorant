@@ -24,8 +24,11 @@ for (match_id, map_name), group in df.groupby(["match_id", "map_name"]):
     team1 = group.iloc[0]
     team2 = group.iloc[1]
     
-    rating_diff = team1["rating_decay"] - team2["rating_decay"]
-    kd_diff = team1["kd_decay"] - team2["kd_decay"]
+    rating_decay_map_diff = team1["rating_decay_map"] - team2["rating_decay_map"]
+    kd_decay_map_diff = team1["kd_decay_map"] - team2["kd_decay_map"]
+    rating_decay_global_diff = team1["rating_decay_global"] - team2["rating_decay_global"]
+    kd_decay_global_diff = team1["kd_decay_global"] - team2["kd_decay_global"]
+    experience_diff = team1["experience"] - team2["experience"]
     
     target = team1["winner_flag"]
     
@@ -35,8 +38,11 @@ for (match_id, map_name), group in df.groupby(["match_id", "map_name"]):
         "date": team1["date"],
         "team1": team1["team"],
         "team2": team2["team"],
-        "rating_diff": rating_diff,
-        "kd_diff": kd_diff,
+        "rating_decay_map_diff": rating_decay_map_diff,
+        "kd_decay_map_diff": kd_decay_map_diff,
+        "rating_decay_global_diff": rating_decay_global_diff,
+        "kd_decay_global_diff": kd_decay_global_diff,
+        "experience_diff": experience_diff,
         "target": target
     })
 

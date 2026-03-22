@@ -29,6 +29,8 @@ for (match_id, map_name), group in df.groupby(["match_id", "map_name"]):
     rating_decay_global_diff = team1["rating_decay_global"] - team2["rating_decay_global"]
     kd_decay_global_diff = team1["kd_decay_global"] - team2["kd_decay_global"]
     experience_diff = team1["experience"] - team2["experience"]
+    winrate_map_decay_diff = team1["winrate_map_decay"] - team2["winrate_map_decay"]
+    winrate_global_decay_diff = team1["winrate_global_decay"] - team2["winrate_global_decay"]
     
     target = team1["winner_flag"]
     
@@ -43,6 +45,8 @@ for (match_id, map_name), group in df.groupby(["match_id", "map_name"]):
         "rating_decay_global_diff": rating_decay_global_diff,
         "kd_decay_global_diff": kd_decay_global_diff,
         "experience_diff": experience_diff,
+        "winrate_map_decay_diff": winrate_map_decay_diff,
+        "winrate_global_decay_diff": winrate_global_decay_diff,
         "target": target
     })
 

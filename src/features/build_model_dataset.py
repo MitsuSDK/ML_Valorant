@@ -2,7 +2,6 @@ import pandas as pd
 
 from pathlib import Path
 
-# Define project root dynamically
 BASE_DIR = Path(__file__).resolve().parents[2]
 
 

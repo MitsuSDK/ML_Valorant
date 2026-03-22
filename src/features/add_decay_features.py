@@ -19,8 +19,9 @@ for index, row in df.iterrows():
     ]
 
     if past_matches.empty:
-        rating_decay = df["avg_rating"].mean()
-        kd_decay = df["team_kd"].mean()
+        # Neutral baseline to avoid leakage from future data
+        rating_decay = 1.0
+        kd_decay = 1.0
     else:
         delta_days = (current_date - past_matches["date"]).dt.days
         weights = np.exp(-decay_rate * delta_days)
